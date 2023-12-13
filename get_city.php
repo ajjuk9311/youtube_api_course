@@ -1,7 +1,24 @@
 <?php
 include('connection.php');
 
-$query = "select * from citylist";
+$json = file_get_contents('php://input');
+
+$post = json_decode($json,true);
+
+$region_where = '';
+if(isset($post['region']) && $post['region']!=''){
+    $region = $post['region'];
+    $region_where = " where region = '{$region}'";
+}
+
+$statename_where ='';
+if(isset($post['statename']) && $post['statename']!=''){
+    $statename = $post['statename'];
+    $statename_where = " and statename = '{$statename}' ";
+
+}
+$query = "select * from citylist {$region_where}  {$statename_where} ";
+
 $result = mysqli_query($conn,$query);
 
 if($result->num_rows > 0){
