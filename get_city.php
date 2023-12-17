@@ -1,9 +1,14 @@
 <?php
 include('connection.php');
+include('function.php');
 
 $json = file_get_contents('php://input');
-
 $post = json_decode($json,true);
+
+//authenticate firstly
+$username = $post['username'];
+$token = $post['token'];
+authentication($username,$token,$conn);
 
 $region_where = '';
 if(isset($post['region']) && $post['region']!=''){
