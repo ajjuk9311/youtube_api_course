@@ -15,4 +15,15 @@ function authentication($username,$token,$conn){
     }
 }
 
+function base_url(){
+    if($_SERVER['SERVER_PORT']==443){
+        $protocol='https://';
+    }else{
+        $protocol='http://';
+    }
+    $base_url = $protocol.$_SERVER['SERVER_NAME'].str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
+    
+    return $base_url;
+}
+
 ?>
